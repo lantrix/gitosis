@@ -72,6 +72,22 @@ following commands as root instead::
 
   chown git:git /home/git
 
+Under OpenBSD (and presumably FreeBSD and NetBSD) execute the 
+following commands as root instead::
+
+  groupadd \
+        git
+
+  useradd \
+        -g git \
+        -s /bin/sh \
+        -c 'git version control' \
+        -m \
+        -d /var/git \
+        git
+
+  chown git:git /var/git
+
 You will need an SSH public key to continue. If you don't have one,
 you need to generate one. See the man page for ``ssh-keygen``, and you
 may also be interested in ``ssh-agent``. Create it on your personal
