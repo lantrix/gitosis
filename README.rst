@@ -75,7 +75,7 @@ following commands as root instead::
 Setting up git user on BSD
 ==========================
 
-OpenBSD (and presumably FreeBSD and NetBSD) need slightly the user
+OpenBSD (and presumably FreeBSD and NetBSD) need the user
 account for gitosis setup different from linux.
 
 We will create the user that will own the repositories. This is
@@ -101,7 +101,7 @@ you may choose another location. Adjust to suit and run::
 
   sudo chown git:git /var/git
 
-Note that OpenBSD does not have the disabled-password option
+Note that OpenBSD does not have the --disabled-password option
 when creating the user, so the best option is to disable
 password based logins for this user in the systems sshd_config.
 This is done by executing these commands as root on OpenBSD::
