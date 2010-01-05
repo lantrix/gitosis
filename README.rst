@@ -34,8 +34,8 @@ Though you may want to use e.g. ``--prefix=``. For Debian/Ubuntu
 users, the source is debianized.
 
 
-Setting up
-==========
+Setting up git user on linux
+============================
 
 First, we will create the user that will own the repositories. This is
 usually called ``git``, but any name will work, and you can have more
@@ -72,13 +72,26 @@ following commands as root instead::
 
   chown git:git /home/git
 
-Under OpenBSD (and presumably FreeBSD and NetBSD) execute the 
-following commands as root instead::
+Setting up git user on BSD
+==========================
 
-  groupadd \
+OpenBSD (and presumably FreeBSD and NetBSD) need slightly the user
+account for gitosis setup different from linux.
+
+We will create the user that will own the repositories. This is
+usually called ``git``, but any name will work, and you can have more
+than one per system if you really want to. The user does not need a
+password, but does need a valid shell (otherwise, SSH will refuse to
+work). Don't use an existing account unless you know what you're
+doing.
+
+I usually store ``git`` repositories in ``/var/git`` but
+you may choose another location. Adjust to suit and run::
+
+  sudo groupadd \
         git
 
-  useradd \
+  sudo useradd \
         -g git \
         -s /bin/sh \
         -c 'git version control' \
@@ -86,7 +99,22 @@ following commands as root instead::
         -d /var/git \
         git
 
-  chown git:git /var/git
+  sudo chown git:git /var/git
+
+Note that OpenBSD does not have the disabled-password option
+when creating the user, so the best option is to disable
+password based logins for this user in the systems sshd_config.
+This is done by executing these commands as root on OpenBSD::
+
+  cat << EOF >> /etc/ssh/sshd_config                                                                                              
+  Match user git
+  PasswordAuthentication no
+  EOF
+
+  kill -HUP `cat /var/run/sshd.pid`
+
+Setting up gitosis for SSH
+==========================
 
 You will need an SSH public key to continue. If you don't have one,
 you need to generate one. See the man page for ``ssh-keygen``, and you
