@@ -129,23 +129,31 @@ the actual configuration file, and it will add the SSH public key to
 ``~/.ssh/authorized_keys`` with a ``command=`` option that restricts
 it to running ``gitosis-serve``. Run::
 
-	# sudo -H -u -s
-	$ git gitosis-init <FILENAME.pub
+	# sudo su - git
+	$ gitosis-init <FILENAME.pub
 	# exit
-	# (or just copy-paste the public key when prompted)
 
-then just ``git clone git@SERVER:gitosis-admin.git``, and you get a
-repository with SSH keys as ``keys/USER.pub`` and a ``gitosis.conf``
-where you can configure who has access to what.
+.. Note::
+
+	If you don't redirect the contents of the ssh public key file by
+	using ``<FILENAME.pub`` then you may copy-paste the public key
+	after running ``gitosis-init``, as it is reading from stdin.
 
 .. warning::
 
 	For now, ``gitosis`` uses the ``HOME`` environment variable to
-	locate where to write its files. If you use ``sudo -u``
-	without ``-H``, ``sudo`` will leave the old value of ``HOME``
+	locate where to write its files. If you use ``sudo su git``
+	without ``-``, ``su`` will leave the current users value of ``HOME``
 	in place, and this will cause trouble. There will be a
 	workaround for that later on, but for now, always remember to
-	use ``-H`` if you're sudoing to the account.
+	use ``su - git`` if you're switching to the git account.
+	
+After you have initialized gitosis you can get a clone of an admin
+repository with SSH keys as ``keys/USER.pub`` and a ``gitosis.conf``
+where you can configure who has access to what. This can be performed
+from your personal computer where you generated your SSH key as shown::
+
+	git clone git@SERVER:gitosis-admin.git
 
 You should always edit the configuration file via ``git``. The file
 symlinked to ``~/.gitosis.conf`` on the server will be overwritten
