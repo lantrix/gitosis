@@ -113,8 +113,8 @@ This is done by executing these commands as root on OpenBSD::
 
   kill -HUP `cat /var/run/sshd.pid`
 
-Setting up gitosis for SSH
-==========================
+Initializing gitosis
+====================
 
 You will need an SSH public key to continue. If you don't have one,
 you need to generate one. See the man page for ``ssh-keygen``, and you
