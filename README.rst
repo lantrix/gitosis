@@ -133,7 +133,7 @@ it to running ``gitosis-serve``. Run::
 	$ gitosis-init <FILENAME.pub
 	# exit
 
-.. Note::
+.. note::
 
 	If you don't redirect the contents of the ssh public key file by
 	using ``<FILENAME.pub`` then you may copy-paste the public key
